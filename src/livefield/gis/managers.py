@@ -13,7 +13,7 @@ class LiveGeoManagerBase(models.Manager):
     def get_queryset(self):
         qs = super(LiveGeoManagerBase, self).get_queryset()  # pylint: disable=super-on-old-class
         if not self.include_soft_deleted:
-            return qs.live()
+            return qs.alive()
         return qs
 
 

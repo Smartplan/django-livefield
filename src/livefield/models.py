@@ -12,7 +12,7 @@ class LiveModel(models.Model):
     deletion can performed using `Model.hard_delete()`.
     """
 
-    live = LiveField()
+    alive = LiveField()
 
     objects = LiveManager()
     all_objects = LiveManager(include_soft_deleted=True)
@@ -27,5 +27,5 @@ class LiveModel(models.Model):
         super(LiveModel, self).delete()
 
     def soft_delete(self):
-        self.live = False
+        self.alive = False
         self.save()

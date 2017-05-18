@@ -12,7 +12,7 @@ class LiveGeoModel(GeoModel):
     deletion can performed usign `Model.hard_delete()`.
     """
 
-    live = LiveField()
+    alive = LiveField()
 
     objects = LiveGeoManager()
     all_objects = LiveGeoManager(include_soft_deleted=True)
@@ -21,12 +21,12 @@ class LiveGeoModel(GeoModel):
         abstract = True
 
     def delete(self, *args, **kwargs):
-        self.live = False
+        self.alive = False
         self.save()
 
     def hard_delete(self):  # pylint: disable=super-on-old-class
         super(LiveGeoModel, self).delete()
 
     def undelete(self, *args, **kwargs):
-        self.live = True
+        self.alive = True
         self.save()

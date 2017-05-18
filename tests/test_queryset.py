@@ -16,7 +16,7 @@ class LiveQuerySetTests(TestCase):
         # Create some soft-deleted records.
         for name in self.names[:2]:
             p = Person(name=name)
-            p.live = False
+            p.alive = False
             p.save()
 
         # And then create live records with the same names.
@@ -24,7 +24,7 @@ class LiveQuerySetTests(TestCase):
             Person.objects.create(name=name)
 
     def test_live_filter(self):
-        self.assertEqual(Person.all_objects.all().live().count(), 3)
+        self.assertEqual(Person.all_objects.all().alive().count(), 3)
 
     def test_non_dead_filter(self):
         self.assertEqual(Person.all_objects.all().non_dead().count(), 3)

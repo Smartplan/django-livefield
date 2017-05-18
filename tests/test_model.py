@@ -10,7 +10,7 @@ class LiveModelTests(TestCase):
         item.delete()
         self.assertEqual(Item.objects.count(), 0)
         self.assertEqual(Item.all_objects.count(), 1)
-        self.assertEqual(Item.objects.filter(live__isnull=False).count(), 0)
+        self.assertEqual(Item.objects.filter(alive__isnull=False).count(), 0)
 
     def test_hard_delete(self):
         item = Item.objects.create()

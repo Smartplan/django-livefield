@@ -8,20 +8,20 @@ class LiveGeoQuerySet(GeoQuerySet):
         self.soft_delete()
 
     def soft_delete(self):
-        self.update(live=False)
+        self.update(alive=False)
 
     def undelete(self):
-        self.update(live=True)
+        self.update(alive=True)
 
     def hard_delete(self):
         # Default Django behavior.
         super(LiveGeoQuerySet, self).delete()
 
-    def live(self):
-        return self.filter(live=True)
+    def alive(self):
+        return self.filter(alive=True)
 
     def non_dead(self):
-        return self.live()
+        return self.alive()
 
     def dead(self):
-        return self.filter(live__isnull=True)
+        return self.filter(alive__isnull=True)

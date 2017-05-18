@@ -27,16 +27,16 @@ Example Usage
     >>>
     >>> class Person(models.Model):
     ...    name = models.CharField()
-    ...    live = LiveField()
+    ...    alive = LiveField()
     ...
     ...    objects = LiveManager()
     ...    all_objects = LiveManager(include_soft_deleted=True)
     ...
     ...    class Meta:
-    ...        unique_together = ('name', 'live')
+    ...        unique_together = ('name', 'alive')
     ...
     ...    def delete(self, using=None):
-    ...        self.live = False
+    ...        self.alive = False
     ...        self.save(using=using)
     ...
     >>> john = Person.objects.create(name='John Cleese')

@@ -15,7 +15,7 @@ class LiveManagerTests(TestCase):
         # Create some soft-deleted records.
         for name in self.names[:2]:
             p = Person(name=name)
-            p.live = False
+            p.alive = False
             p.save()
 
         # And then create live records with the same names.
@@ -31,7 +31,7 @@ class LiveManagerTests(TestCase):
     # Verify that our convenience functions are working as expected.
 
     def test_live_proxies_to_queryset(self):
-        self.assertEqual(Person.all_objects.live().count(), 3)
+        self.assertEqual(Person.all_objects.alive().count(), 3)
 
     def test_non_dead_proxies_to_queryset(self):
         self.assertEqual(Person.all_objects.non_dead().count(), 3)

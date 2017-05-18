@@ -11,10 +11,10 @@ class Item(LiveModel):
 
 class Person(models.Model):
     name = models.CharField(max_length=20)
-    live = LiveField()
+    alive = LiveField()
 
     class Meta:
-        unique_together = ('name', 'live')
+        unique_together = ('name', 'alive')
 
     objects = LiveManager()
     all_objects = LiveManager(include_soft_deleted=True)
