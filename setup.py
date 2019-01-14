@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# W/o multiprocessing, nosetests can't exit cleanly.
-# (See http://bugs.python.org/issue15881#msg170215)
 import multiprocessing  # noqa
 import os
 import sys
@@ -11,12 +9,13 @@ from setuptools.command.test import test as TestCommand
 
 
 tests_require = (
-    'django-nose',
+    'pytest',
+    'pytest-django'
 )
 
 
 install_requires = (
-    'Django>=1.10',
+    'Django>=1.11,<2.2',
 )
 
 
@@ -58,19 +57,17 @@ class DjangoTest(TestCommand):
             DEBUG=True,
             DATABASES={'default': db_settings},
             CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}},
-            INSTALLED_APPS=('django_nose',) + self.APPS)
+            INSTALLED_APPS=self.APPS)
 
         import django
-        django.setup()  # pylint: disable=no-member
-
-        from django_nose import NoseTestSuiteRunner
-        runner = NoseTestSuiteRunner(failfast=False, interactive=False)
-        sys.exit(runner.run_tests(self.APPS))
+        import pytest
+        django.setup()
+        sys.exit(pytest.main(["tests/"]))
 
 
 setup(
     name='django-livefield',
-    version='2.8.0',
+    version='3.1.0',
     description='Convenient soft-deletion support for Django models',
     long_description=(
         open('README.rst').read() + '\n\n' +
@@ -84,9 +81,8 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     keywords='python django soft-delete',
     url='https://github.com/hearsaycorp/django-livefield',
