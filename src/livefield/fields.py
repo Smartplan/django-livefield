@@ -14,7 +14,8 @@ class LiveField(models.NullBooleanField):
     description = u'Soft-deletion status'
 
     def __init__(self, *args, **kwargs):
-        super(LiveField, self).__init__(default=True, null=True)
+        db_index = kwargs.get('db_index', False)
+        super(LiveField, self).__init__(default=True, null=True, db_index=db_index)
 
     def get_prep_value(self, value):
         # Convert in-Python value to value we'll store in DB
